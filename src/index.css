@@ -1,0 +1,304 @@
+@import "tailwindcss";
+
+/*
+  抖音 AI 视频工作台 - Zen-iOS Hybrid 设计系统
+  追求极致的物理触感、光学模糊效果和高对比度的冷灰调设计
+*/
+
+/* ============================================
+   CSS 变量定义 - Zen-iOS Hybrid 浅色主题
+   ============================================ */
+:root {
+  /* 底色 - iOS 系统级灰，杜绝纯白 */
+  --background: #F2F2F7;
+  --background-secondary: #F9F9FB;
+  --foreground: #1C1C1E;
+
+  /* 卡片 - 毛玻璃材质 */
+  --card: rgba(255, 255, 255, 0.6);
+  --card-hover: rgba(255, 255, 255, 0.75);
+  --card-foreground: #1C1C1E;
+
+  /* 弹出层 */
+  --popover: rgba(255, 255, 255, 0.85);
+  --popover-foreground: #1C1C1E;
+
+  /* 主色 - 深空黑 (高对比交互) */
+  --primary: #1C1C1E;
+  --primary-foreground: #FFFFFF;
+
+  /* 次要色 - 柔和灰 */
+  --secondary: rgba(255, 255, 255, 0.9);
+  --secondary-foreground: #1C1C1E;
+
+  /* 静音色 */
+  --muted: rgba(0, 0, 0, 0.04);
+  --muted-foreground: #6B7280;
+
+  /* 强调色 - 蓝色系 */
+  --accent: #007AFF;
+  --accent-foreground: #FFFFFF;
+
+  /* 危险色 */
+  --destructive: #FF3B30;
+  --destructive-foreground: #FFFFFF;
+
+  /* 成功色 */
+  --success: #34C759;
+  --success-foreground: #FFFFFF;
+
+  /* 警告色 */
+  --warning: #FF9500;
+  --warning-foreground: #FFFFFF;
+
+  /* 边框 - 双层物理描边系统 */
+  --border-outer: rgba(209, 213, 219, 0.4);  /* 外轮廓 */
+  --border-inner: rgba(255, 255, 255, 0.6);  /* 内光边 */
+  --border: rgba(209, 213, 219, 0.5);
+
+  /* 输入框 - 凹陷质感 */
+  --input: rgba(243, 244, 246, 0.5);
+  --input-focus: rgba(255, 255, 255, 0.8);
+  --ring: #007AFF;
+
+  /* 圆角 - iOS 连续曲率 */
+  --radius-sm: 12px;
+  --radius-md: 16px;
+  --radius-lg: 28px;
+  --radius-xl: 40px;
+  --radius-2xl: 50px;
+
+  /* 阴影系统 */
+  --shadow-float: 0 24px 48px -12px rgba(0, 0, 0, 0.08);
+  --shadow-card: 0 8px 32px -8px rgba(0, 0, 0, 0.06);
+  --shadow-button: 0 4px 12px -2px rgba(0, 0, 0, 0.08);
+  --shadow-inner: inset 0 2px 4px rgba(0, 0, 0, 0.06);
+
+  /* 模糊度 */
+  --blur-glass: 40px;
+  --blur-glass-heavy: 60px;
+
+  /* 侧边栏 */
+  --sidebar-background: rgba(255, 255, 255, 0.5);
+  --sidebar-foreground: #1C1C1E;
+  --sidebar-primary: #1C1C1E;
+  --sidebar-primary-foreground: #FFFFFF;
+  --sidebar-accent: rgba(0, 0, 0, 0.04);
+  --sidebar-accent-foreground: #1C1C1E;
+  --sidebar-border: rgba(209, 213, 219, 0.3);
+  --sidebar-ring: #007AFF;
+}
+
+/* ============================================
+   全局基础样式
+   ============================================ */
+* {
+  box-sizing: border-box;
+}
+
+html {
+  color-scheme: light;
+}
+
+body {
+  background: var(--background);
+  color: var(--foreground);
+  font-family: "Inter", "SF Pro Display", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+  /* 背景渐变，增加层次感 */
+  background-image:
+    radial-gradient(ellipse 80% 50% at 50% -20%, rgba(0, 122, 255, 0.03), transparent),
+    radial-gradient(ellipse 60% 40% at 100% 100%, rgba(52, 199, 89, 0.02), transparent);
+}
+
+/* ============================================
+   毛玻璃材质工具类
+   ============================================ */
+.glass {
+  background: var(--card);
+  backdrop-filter: blur(var(--blur-glass));
+  -webkit-backdrop-filter: blur(var(--blur-glass));
+  border: 1px solid var(--border-inner);
+  box-shadow:
+    var(--shadow-card),
+    inset 0 0 0 1px var(--border-inner),
+    0 0 0 1px var(--border-outer);
+}
+
+.glass-heavy {
+  background: rgba(255, 255, 255, 0.7);
+  backdrop-filter: blur(var(--blur-glass-heavy));
+  -webkit-backdrop-filter: blur(var(--blur-glass-heavy));
+  border: 1px solid var(--border-inner);
+  box-shadow:
+    var(--shadow-float),
+    inset 0 0 0 1px var(--border-inner),
+    0 0 0 1px var(--border-outer);
+}
+
+/* ============================================
+   凹陷组件样式 (输入框、切换器槽)
+   ============================================ */
+.inset {
+  background: var(--input);
+  box-shadow: var(--shadow-inner);
+  border: 1px solid rgba(0, 0, 0, 0.04);
+}
+
+/* ============================================
+   触觉反馈动画
+   ============================================ */
+.tactile {
+  transition: transform 0.1s ease-out, box-shadow 0.15s ease-out;
+}
+
+.tactile:active {
+  transform: scale(0.97);
+}
+
+.tactile-sm:active {
+  transform: scale(0.98);
+}
+
+.tactile-lg:active {
+  transform: scale(0.95);
+}
+
+/* ============================================
+   排版系统
+   ============================================ */
+.heading-display {
+  font-weight: 800;
+  letter-spacing: -0.025em;
+}
+
+.label-industrial {
+  font-size: 10px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--muted-foreground);
+}
+
+/* ============================================
+   滚动条样式 - 极简风格
+   ============================================ */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: rgba(0, 0, 0, 0.15);
+  border-radius: 3px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(0, 0, 0, 0.25);
+}
+
+/* 仅在悬浮时显示滚动条 */
+.scrollbar-hide::-webkit-scrollbar {
+  display: none;
+}
+
+.scrollbar-auto:hover::-webkit-scrollbar-thumb {
+  background: rgba(0, 0, 0, 0.2);
+}
+
+/* ============================================
+   选中文本样式
+   ============================================ */
+::selection {
+  background: rgba(0, 122, 255, 0.2);
+  color: inherit;
+}
+
+/* ============================================
+   Tauri 桌面应用专用
+   ============================================ */
+.no-drag {
+  -webkit-user-select: none;
+  user-select: none;
+}
+
+.drag-region {
+  -webkit-app-region: drag;
+}
+
+.no-drag-region {
+  -webkit-app-region: no-drag;
+}
+
+/* ============================================
+   iOS 连续曲率圆角
+   ============================================ */
+.rounded-ios-sm {
+  border-radius: var(--radius-sm);
+}
+
+.rounded-ios-md {
+  border-radius: var(--radius-md);
+}
+
+.rounded-ios-lg {
+  border-radius: var(--radius-lg);
+}
+
+.rounded-ios-xl {
+  border-radius: var(--radius-xl);
+}
+
+.rounded-ios-2xl {
+  border-radius: var(--radius-2xl);
+}
+
+/* ============================================
+   层级堆叠辅助类
+   ============================================ */
+.layer-base {
+  position: relative;
+  z-index: 0;
+}
+
+.layer-card {
+  position: relative;
+  z-index: 10;
+}
+
+.layer-overlay {
+  position: relative;
+  z-index: 20;
+}
+
+.layer-modal {
+  position: relative;
+  z-index: 50;
+}
+
+/* ============================================
+   呼吸感间距工具类
+   ============================================ */
+.breathing-sm {
+  padding: 1rem;
+}
+
+.breathing-md {
+  padding: 1.5rem;
+}
+
+.breathing-lg {
+  padding: 2rem;
+}
+
+.breathing-xl {
+  padding: 2.5rem;
+}
