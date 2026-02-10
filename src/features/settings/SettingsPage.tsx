@@ -8,6 +8,10 @@ import {
   Input,
   LabelIndustrial,
   Button,
+  Tabs,
+  TabsList,
+  TabsTrigger,
+  TabsContent,
 } from "@/components/ui";
 import { Key, Folder, Trash2 } from "lucide-react";
 
@@ -19,6 +23,7 @@ import { Key, Folder, Trash2 } from "lucide-react";
  * - 凹陷输入框
  * - 大圆角和呼吸感间距
  * - 工业风格标签
+ * - Tab 标签页切换 API 配置与存储设置
  */
 export function SettingsPage() {
   return (
@@ -32,116 +37,122 @@ export function SettingsPage() {
 
       {/* 设置内容 */}
       <ScrollArea className="flex-1 min-h-0">
-        <div className="max-w-2xl mx-auto p-10 space-y-8">
-          {/* API 配置 */}
-          <section>
-            <div className="mb-4">
-              <LabelIndustrial>服务配置</LabelIndustrial>
-              <h2 className="text-xl font-bold tracking-tight mt-2">API 密钥</h2>
-            </div>
+        <div className="max-w-2xl mx-auto p-10">
+          <div className="mb-4">
+            <LabelIndustrial>偏好设置</LabelIndustrial>
+            <h2 className="text-xl font-bold tracking-tight mt-2">
+              配置与存储
+            </h2>
+          </div>
 
-            <Card>
+          <Card>
+            <Tabs defaultValue="api" className="w-full">
               <CardHeader className="pb-4">
-                <div className="flex items-center gap-4">
-                  <div className="w-14 h-14 rounded-[18px] bg-white border border-black/5 shadow-sm flex items-center justify-center">
-                    <Key className="w-7 h-7 text-[var(--accent)]" strokeWidth={2} />
-                  </div>
-                  <div>
-                    <CardTitle>AI 服务配置</CardTitle>
-                    <CardDescription>配置 AI 服务的 API 密钥以启用智能功能</CardDescription>
-                  </div>
+                <div className="flex items-center justify-between">
+                  <TabsList>
+                    <TabsTrigger
+                      value="api"
+                      className="gap-1.5 cursor-pointer"
+                    >
+                      <Key className="w-4 h-4" strokeWidth={2} />
+                      AI 服务配置
+                    </TabsTrigger>
+                    <TabsTrigger
+                      value="storage"
+                      className="gap-1.5 cursor-pointer"
+                    >
+                      <Folder className="w-4 h-4" strokeWidth={2} />
+                      存储路径
+                    </TabsTrigger>
+                  </TabsList>
                 </div>
               </CardHeader>
-              <CardContent className="space-y-5">
-                <div className="space-y-2">
-                  <LabelIndustrial>OpenAI API Key</LabelIndustrial>
-                  <Input
-                    type="password"
-                    placeholder="sk-..."
-                  />
-                </div>
-                <div className="space-y-2">
-                  <LabelIndustrial>Stable Diffusion API</LabelIndustrial>
-                  <Input
-                    type="password"
-                    placeholder="输入 API 密钥..."
-                  />
-                </div>
-                <Button size="sm">保存配置</Button>
-              </CardContent>
-            </Card>
-          </section>
 
-          {/* 存储路径 */}
-          <section>
-            <div className="mb-4">
-              <LabelIndustrial>本地存储</LabelIndustrial>
-              <h2 className="text-xl font-bold tracking-tight mt-2">存储设置</h2>
-            </div>
+              {/* API 配置面板 */}
+              <TabsContent value="api">
+                <CardContent className="space-y-5 pt-0">
+                  <div className="space-y-1">
+                    <CardTitle>API 密钥</CardTitle>
+                    <CardDescription>
+                      配置 AI 服务的 API 密钥以启用智能功能
+                    </CardDescription>
+                  </div>
+                  <div className="space-y-2">
+                    <LabelIndustrial>OpenAI API Key</LabelIndustrial>
+                    <Input type="password" placeholder="sk-..." />
+                  </div>
+                  <div className="space-y-2">
+                    <LabelIndustrial>Stable Diffusion API</LabelIndustrial>
+                    <Input type="password" placeholder="输入 API 密钥..." />
+                  </div>
+                  <Button size="sm">保存配置</Button>
+                </CardContent>
+              </TabsContent>
 
-            <Card>
-              <CardHeader className="pb-4">
-                <div className="flex items-center gap-4">
-                  <div className="w-14 h-14 rounded-[18px] bg-white border border-black/5 shadow-sm flex items-center justify-center">
-                    <Folder className="w-7 h-7 text-[var(--success)]" strokeWidth={2} />
+              {/* 存储设置面板 */}
+              <TabsContent value="storage">
+                <CardContent className="space-y-5 pt-0">
+                  <div className="space-y-1">
+                    <CardTitle>存储设置</CardTitle>
+                    <CardDescription>
+                      配置项目和缓存的存储位置
+                    </CardDescription>
                   </div>
-                  <div>
-                    <CardTitle>存储路径</CardTitle>
-                    <CardDescription>配置项目和缓存的存储位置</CardDescription>
-                  </div>
-                </div>
-              </CardHeader>
-              <CardContent className="space-y-5">
-                <div className="space-y-2">
-                  <LabelIndustrial>项目存储路径</LabelIndustrial>
-                  <div className="flex gap-3">
-                    <Input
-                      type="text"
-                      readOnly
-                      value="C:/Users/Administrator/Documents/DY-AutoWork"
-                      className="flex-1"
-                    />
-                    <Button variant="outline" size="sm">
-                      浏览
-                    </Button>
-                  </div>
-                </div>
-                <div className="space-y-2">
-                  <LabelIndustrial>缓存路径</LabelIndustrial>
-                  <div className="flex gap-3">
-                    <Input
-                      type="text"
-                      readOnly
-                      value="C:/Users/Administrator/AppData/Local/DY-AutoWork/cache"
-                      className="flex-1"
-                    />
-                    <Button variant="outline" size="sm">
-                      浏览
-                    </Button>
-                  </div>
-                </div>
-
-                <Card variant="inset" className="p-4">
-                  <div className="flex items-center justify-between">
-                    <div className="flex items-center gap-3">
-                      <Trash2 className="w-4 h-4 text-[var(--muted-foreground)]" strokeWidth={2} />
-                      <div>
-                        <span className="text-sm font-medium">缓存大小</span>
-                        <p className="text-xs text-[var(--muted-foreground)]">清理后将重新生成</p>
-                      </div>
-                    </div>
-                    <div className="flex items-center gap-4">
-                      <span className="text-sm font-semibold">256 MB</span>
-                      <Button variant="destructive" size="sm">
-                        清理
+                  <div className="space-y-2">
+                    <LabelIndustrial>项目存储路径</LabelIndustrial>
+                    <div className="flex gap-3">
+                      <Input
+                        type="text"
+                        readOnly
+                        value="C:/Users/Administrator/Documents/DY-AutoWork"
+                        className="flex-1"
+                      />
+                      <Button variant="outline" size="sm">
+                        浏览
                       </Button>
                     </div>
                   </div>
-                </Card>
-              </CardContent>
-            </Card>
-          </section>
+                  <div className="space-y-2">
+                    <LabelIndustrial>缓存路径</LabelIndustrial>
+                    <div className="flex gap-3">
+                      <Input
+                        type="text"
+                        readOnly
+                        value="C:/Users/Administrator/AppData/Local/DY-AutoWork/cache"
+                        className="flex-1"
+                      />
+                      <Button variant="outline" size="sm">
+                        浏览
+                      </Button>
+                    </div>
+                  </div>
 
+                  <Card variant="inset" className="p-4">
+                    <div className="flex items-center justify-between">
+                      <div className="flex items-center gap-3">
+                        <Trash2
+                          className="w-4 h-4 text-[var(--muted-foreground)]"
+                          strokeWidth={2}
+                        />
+                        <div>
+                          <span className="text-sm font-medium">缓存大小</span>
+                          <p className="text-xs text-[var(--muted-foreground)]">
+                            清理后将重新生成
+                          </p>
+                        </div>
+                      </div>
+                      <div className="flex items-center gap-4">
+                        <span className="text-sm font-semibold">256 MB</span>
+                        <Button variant="destructive" size="sm">
+                          清理
+                        </Button>
+                      </div>
+                    </div>
+                  </Card>
+                </CardContent>
+              </TabsContent>
+            </Tabs>
+          </Card>
         </div>
       </ScrollArea>
     </div>
