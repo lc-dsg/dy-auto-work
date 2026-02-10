@@ -17,9 +17,7 @@
         "height": 900,
         "minWidth": 1024,
         "minHeight": 768,
-        "center": true,
-        "titleBarStyle": "overlay",
-        "hiddenTitle": true
+        "center": true
       }
     ],
     "security": {

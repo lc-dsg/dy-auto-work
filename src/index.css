@@ -15,6 +15,10 @@
    CSS 变量定义 - Zen-iOS Hybrid 浅色主题
    ============================================ */
 :root {
+  /* 标题栏安全区高度 - 由 JS 运行时根据平台设置 */
+  /* macOS: 52px (沉浸式 overlay 标题栏) | Windows/Linux: 0px */
+  --titlebar-height: 0px;
+
   /* 底色 - iOS 系统级灰，杜绝纯白 */
   --background: oklch(1 0 0);
   --background-secondary: #F9F9FB;

@@ -9,8 +9,7 @@ import {
   LabelIndustrial,
   Button,
 } from "@/components/ui";
-import { Key, Folder, Palette, Info, Trash2, Sun, Moon } from "lucide-react";
-import { useTheme } from "@/app/theme";
+import { Key, Folder, Trash2 } from "lucide-react";
 
 /**
  * 设置页面 - Zen-iOS Hybrid 风格
@@ -22,8 +21,6 @@ import { useTheme } from "@/app/theme";
  * - 工业风格标签
  */
 export function SettingsPage() {
-  const { theme, setTheme } = useTheme();
-
   return (
     <div className="h-full flex flex-col min-h-0 overflow-hidden">
       {/* 顶部标题栏 */}
@@ -46,7 +43,7 @@ export function SettingsPage() {
             <Card>
               <CardHeader className="pb-4">
                 <div className="flex items-center gap-4">
-                  <div className="w-14 h-14 rounded-[18px] bg-[var(--accent)]/10 flex items-center justify-center">
+                  <div className="w-14 h-14 rounded-[18px] bg-white border border-black/5 shadow-sm flex items-center justify-center">
                     <Key className="w-7 h-7 text-[var(--accent)]" strokeWidth={2} />
                   </div>
                   <div>
@@ -85,7 +82,7 @@ export function SettingsPage() {
             <Card>
               <CardHeader className="pb-4">
                 <div className="flex items-center gap-4">
-                  <div className="w-14 h-14 rounded-[18px] bg-[var(--success)]/10 flex items-center justify-center">
+                  <div className="w-14 h-14 rounded-[18px] bg-white border border-black/5 shadow-sm flex items-center justify-center">
                     <Folder className="w-7 h-7 text-[var(--success)]" strokeWidth={2} />
                   </div>
                   <div>
@@ -145,96 +142,6 @@ export function SettingsPage() {
             </Card>
           </section>
 
-          {/* 外观 */}
-          <section>
-            <div className="mb-4">
-              <LabelIndustrial>个性化</LabelIndustrial>
-              <h2 className="text-xl font-bold tracking-tight mt-2">外观</h2>
-            </div>
-
-            <Card>
-              <CardHeader className="pb-4">
-                <div className="flex items-center gap-4">
-                  <div className="w-14 h-14 rounded-[18px] bg-purple-500/10 flex items-center justify-center">
-                    <Palette className="w-7 h-7 text-purple-500" strokeWidth={2} />
-                  </div>
-                  <div>
-                    <CardTitle>主题</CardTitle>
-                    <CardDescription>
-                      当前模式：{theme === "light" ? "浅色模式" : "深色模式"}
-                    </CardDescription>
-                  </div>
-                </div>
-              </CardHeader>
-              <CardContent className="space-y-4">
-                <div className="grid grid-cols-2 gap-3">
-                  <Button
-                    size="sm"
-                    variant={theme === "light" ? "default" : "outline"}
-                    className="justify-start"
-                    onClick={() => setTheme("light")}
-                  >
-                    <Sun className="w-4 h-4" strokeWidth={2} />
-                    浅色模式
-                  </Button>
-                  <Button
-                    size="sm"
-                    variant={theme === "dark" ? "default" : "outline"}
-                    className="justify-start"
-                    onClick={() => setTheme("dark")}
-                  >
-                    <Moon className="w-4 h-4" strokeWidth={2} />
-                    深色模式
-                  </Button>
-                </div>
-                <p className="text-xs text-[var(--muted-foreground)]">
-                  切换后立即生效，并自动保存为下次启动默认主题。
-                </p>
-              </CardContent>
-            </Card>
-          </section>
-
-          {/* 关于 */}
-          <section>
-            <div className="mb-4">
-              <LabelIndustrial>信息</LabelIndustrial>
-              <h2 className="text-xl font-bold tracking-tight mt-2">关于</h2>
-            </div>
-
-            <Card>
-              <CardHeader className="pb-4">
-                <div className="flex items-center gap-4">
-                  <div className="w-14 h-14 rounded-[18px] bg-[var(--primary)] flex items-center justify-center shadow-[var(--shadow-button)]">
-                    <Info className="w-7 h-7 text-[var(--primary-foreground)]" strokeWidth={2} />
-                  </div>
-                  <div>
-                    <CardTitle>抖音 AI 视频工作台</CardTitle>
-                    <CardDescription>从创意到成片的全流程工具</CardDescription>
-                  </div>
-                </div>
-              </CardHeader>
-              <CardContent>
-                <Card variant="inset" className="p-4 space-y-3">
-                  <div className="flex justify-between text-sm">
-                    <span className="text-[var(--muted-foreground)]">版本</span>
-                    <span className="font-medium">0.1.0</span>
-                  </div>
-                  <div className="flex justify-between text-sm">
-                    <span className="text-[var(--muted-foreground)]">Tauri</span>
-                    <span className="font-medium">2.x</span>
-                  </div>
-                  <div className="flex justify-between text-sm">
-                    <span className="text-[var(--muted-foreground)]">React</span>
-                    <span className="font-medium">19.x</span>
-                  </div>
-                  <div className="flex justify-between text-sm">
-                    <span className="text-[var(--muted-foreground)]">设计系统</span>
-                    <span className="font-medium">Zen-iOS Hybrid</span>
-                  </div>
-                </Card>
-              </CardContent>
-            </Card>
-          </section>
         </div>
       </ScrollArea>
     </div>
